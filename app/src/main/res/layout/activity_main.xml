@@ -17,7 +17,9 @@
         app:tabSelectedTextColor="@color/Red"
         app:tabIndicator="@color/teal_200"
         app:tabIndicatorGravity="center"
-        app:tabIndicatorFullWidth="true">
+        app:tabIndicatorFullWidth="true"
+
+        >
 
     </com.google.android.material.tabs.TabLayout>
 
