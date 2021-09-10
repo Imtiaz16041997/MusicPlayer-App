@@ -12,13 +12,13 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
-        app:tabTextColor="@color/megenta"
-        app:tabSelectedTextColor="@color/Red"
-        app:tabIndicator="@color/teal_200"
-        app:tabIndicatorGravity="center"
+        android:background="@color/PrimaryDark"
         app:tabIndicatorFullWidth="true"
-
+        app:tabIndicatorGravity="center"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorHeight="40dp"
+        app:tabIndicatorColor="#009688"
+        app:tabIndicator="@drawable/tab_indicator_gradient"
         >
 
     </com.google.android.material.tabs.TabLayout>
