@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPagerAdapter pageAdapter;
 
     public static final int REQUEST_CODE = 1;
-    ArrayList<MusicFiles> musicFiles;
+    public static ArrayList<MusicFiles> musicFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         permission();
+
 
     }
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 //            Toast.makeText(this,"Permission Granted !",Toast.LENGTH_SHORT).show();
             musicFiles = getAllAudio(this);
             initViewpager();
+
         }
     }
 
@@ -64,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
         {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                Toast.makeText(this,"Permission Granted !",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this,"Permission Granted !",Toast.LENGTH_SHORT).show();
                 musicFiles = getAllAudio(this);
+                initViewpager();
             }
             else
             {
