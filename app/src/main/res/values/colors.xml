@@ -5,12 +5,30 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+
+    <color name="bluegrey">#617D8A</color>
+    <color name="silver2">#9AA7B0</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="Silver">#C0C0C0</color>
+    <color name="Gray">#808080</color>
+    <color name="Maroon">#800000</color>
     <color name="Red">#FF0000</color>
-    <color name="orange">#FFC107</color>
-    <color name="megenta">#D46A93</color>
-    <color name="green">#84B383</color>
-    <color name="grey">#5F6368</color>
+    <color name="Yellow">#FFFF00</color>
+    <color name="Olive">#808000</color>
+    <color name="Lime">#00FF00</color>
+    <color name="Green">#008000</color>
+    <color name="Aqua">#00FFFF</color>
+    <color name="Teal">#008080</color>
+    <color name="Navy">#000080</color>
+    <color name="Fuchsia">#FF00FF</color>
+    <color name="Purple">#800080</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="nw">#292E49</color>
+    <color name="neon">#1C444D</color>
+    <color name="nron2">#01A7A6</color>
+    <color name="darkgrey">#202020</color>
     <color name="PrimaryDark">#151515</color>
+    <color name="PrimaryGrey">#8A9DB1</color>
+    <color name="PrimaryGrey2">#6B7E92</color>
 </resources>

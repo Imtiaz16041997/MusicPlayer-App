@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.musicplayer.Models.MusicFiles;
-import com.example.musicplayer.MyViewHolder;
 import com.example.musicplayer.R;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
         else
         {
             Glide.with(mContext)
-                    .load(R.drawable.photo2)
+                    .load(R.drawable.m2)
                     .into(holder.album_art);
         }
 

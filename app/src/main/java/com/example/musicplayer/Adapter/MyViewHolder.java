@@ -1,4 +1,4 @@
-package com.example.musicplayer;
+package com.example.musicplayer.Adapter;
 
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.musicplayer.R;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
