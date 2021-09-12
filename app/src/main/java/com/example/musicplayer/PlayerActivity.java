@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class PlayerActivity extends AppCompatActivity {
     static ArrayList<MusicFiles> listSongs = new ArrayList<>(); // take static , when we get back from playeractivity to -> list of songs
     static Uri uri;
     static MediaPlayer mediaPlayer;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,39 @@ public class PlayerActivity extends AppCompatActivity {
 
             }
         });
+        PlayerActivity.this.runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                if(mediaPlayer != null)
+                {
+                    int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                    seekBar.setProgress(mCurrentPosition);
+                    duration_played.setText(formattedTime(mCurrentPosition));
+                }
+                handler.postDelayed(this,1000);
+            }
+        });
 
 
+    }
+
+    private String formattedTime(int mCurrentPosition)
+    {
+        String totalOut = "";
+        String totalNew = "";
+        String seconds = String.valueOf(mCurrentPosition % 60);
+        String minutes = String.valueOf(mCurrentPosition / 60);
+        totalOut = minutes + ":" + seconds;
+        totalNew = minutes + ":" + "0" + seconds;
+
+        if(seconds.length() == 1)
+        {
+            return totalNew;
+        }
+        else
+        {
+            return totalOut;
+        }
     }
 
     private void getIntentMethod() {
