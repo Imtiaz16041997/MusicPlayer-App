@@ -28,20 +28,19 @@
             android:layout_alignParentLeft="true" />
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/menu_btn"
+            android:layout_toLeftOf="@id/menu_btn"
             android:layout_toEndOf="@id/back_btn"
+            android:layout_toRightOf="@id/back_btn"
+            android:background="@android:color/transparent"
             android:gravity="center_horizontal"
             android:text="Now Playing"
-            android:layout_centerVertical="true"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_toStartOf="@id/menu_btn"
-            android:layout_toRightOf="@id/back_btn"
-            android:layout_toLeftOf="@id/menu_btn" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/menu_btn"
@@ -112,15 +111,16 @@
         />
 
     <RelativeLayout
+        android:id="@+id/relative_layout_for_bottom"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/relative_layout_for_bottom"
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/gradient_bg"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/gradient_bg">
 
         <ImageView
             android:id="@+id/id_shuffle"
@@ -134,15 +134,15 @@
             android:src="@drawable/ic_shuffle_off"></ImageView>
 
         <ImageView
+            android:id="@+id/id_prev"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:id="@+id/id_prev"
-            android:src="@drawable/ic_skip_previous"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/play_pause"
             android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toStartOf="@+id/play_pause"
             android:layout_toLeftOf="@+id/play_pause"
-            android:layout_marginRight="16dp"></ImageView>
+            android:src="@drawable/ic_skip_previous"></ImageView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/play_pause"
@@ -158,28 +158,28 @@
 
 
         <ImageView
+            android:id="@+id/id_next"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:id="@+id/id_next"
-            android:src="@drawable/ic_skip_next"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="32dp"
             android:layout_toEndOf="@+id/play_pause"
-            android:layout_toRightOf="@+id/play_pause"></ImageView>
+            android:layout_toRightOf="@+id/play_pause"
+            android:src="@drawable/ic_skip_next"></ImageView>
 
         <ImageView
+            android:id="@+id/id_repeat"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:id="@+id/id_repeat"
-            android:src="@drawable/ic_repeat_off"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_alignarentEnd="true"
-            android:layout_marginEnd="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_alignParentRight="true"></ImageView>
+            android:layout_marginEnd="32dp"
 
+            android:src="@drawable/ic_repeat_off"></ImageView>
 
 
     </RelativeLayout>

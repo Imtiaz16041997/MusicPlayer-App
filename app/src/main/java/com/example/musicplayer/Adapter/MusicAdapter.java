@@ -1,6 +1,7 @@
 package com.example.musicplayer.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.musicplayer.Models.MusicFiles;
+import com.example.musicplayer.PlayerActivity;
 import com.example.musicplayer.R;
 
 import java.util.ArrayList;
@@ -51,6 +53,14 @@ public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
                     .load(R.drawable.m2)
                     .into(holder.album_art);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, PlayerActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
