@@ -1,5 +1,6 @@
 package com.example.musicplayer.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
@@ -36,7 +37,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.file_name.setText(mFiles.get(position).getTitle());
         byte[] image = getAlbumArt(mFiles.get(position).getPath());
@@ -58,6 +59,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, PlayerActivity.class);
+                //when click songs it will be playing
+                intent.putExtra("position",position);
                 mContext.startActivity(intent);
             }
         });
