@@ -4,6 +4,7 @@ import static com.example.musicplayer.MainActivity.musicFiles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.musicplayer.Models.MusicFiles;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,6 +33,7 @@ public class PlayerActivity extends AppCompatActivity {
     static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,8 @@ public class PlayerActivity extends AppCompatActivity {
 
         initViews();
         getIntentMethod();
+        song_name.setText(listSongs.get(position).getTitle());
+        artist_name.setText(listSongs.get(position).getArtist());
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -76,24 +81,23 @@ public class PlayerActivity extends AppCompatActivity {
 
     }
 
-    private String formattedTime(int mCurrentPosition)
-    {
-        String totalOut = "";
-        String totalNew = "";
-        String seconds = String.valueOf(mCurrentPosition % 60);
-        String minutes = String.valueOf(mCurrentPosition / 60);
-        totalOut = minutes + ":" + seconds;
-        totalNew = minutes + ":" + "0" + seconds;
 
-        if(seconds.length() == 1)
-        {
-            return totalNew;
-        }
-        else
-        {
-            return totalOut;
-        }
+    private void initViews() {
+        song_name = findViewById(R.id.song_name);
+        artist_name = findViewById(R.id.song_artist);
+        duration_played = findViewById(R.id.durationPlayed);
+        duration_total = findViewById(R.id.durationTotal);
+        cover_art = findViewById(R.id.cover_art);
+        nextBtn = findViewById(R.id.id_next);
+        prevBtn = findViewById(R.id.id_prev);
+        backBtn = findViewById(R.id.back_btn);
+        shuffleBtn = findViewById(R.id.id_shuffle);
+        repeatBtn = findViewById(R.id.id_repeat);
+        playPauseBtn = findViewById(R.id.play_pause);
+        seekBar = findViewById(R.id.seekBar);
+
     }
+
 
     private void getIntentMethod() {
 
@@ -118,23 +122,55 @@ public class PlayerActivity extends AppCompatActivity {
             mediaPlayer.start();
         }
         seekBar.setMax(mediaPlayer.getDuration() / 1000);
+        metaData(uri);
 
 
     }
 
-    private void initViews() {
-        song_name = findViewById(R.id.song_name);
-        artist_name = findViewById(R.id.song_artist);
-        duration_played = findViewById(R.id.durationPlayed);
-        duration_total = findViewById(R.id.durationTotal);
-        cover_art = findViewById(R.id.cover_art);
-        nextBtn = findViewById(R.id.id_next);
-        prevBtn = findViewById(R.id.id_prev);
-        backBtn = findViewById(R.id.back_btn);
-        shuffleBtn = findViewById(R.id.id_shuffle);
-        repeatBtn = findViewById(R.id.id_repeat);
-        playPauseBtn = findViewById(R.id.play_pause);
-        seekBar = findViewById(R.id.seekBar);
 
+    private String formattedTime(int mCurrentPosition)
+    {
+        String totalOut = "";
+        String totalNew = "";
+        String seconds = String.valueOf(mCurrentPosition % 60);
+        String minutes = String.valueOf(mCurrentPosition / 60);
+        totalOut = minutes + ":" + seconds;
+        totalNew = minutes + ":" + "0" + seconds;
+
+        if(seconds.length() == 1)
+        {
+            return totalNew;
+        }
+        else
+        {
+            return totalOut;
+        }
+    }
+    
+    private void metaData( Uri uri)
+    {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+
+        retriever.setDataSource(uri.toString());
+
+        int durationTotal = Integer.parseInt(listSongs.get(position).getDuration()) / 1000 ;
+        duration_total.setText(formattedTime(durationTotal));
+
+        byte[] art = retriever.getEmbeddedPicture();
+        if(art != null)
+        {
+            Glide.with(this)
+                    .asBitmap()
+                    .load(art)
+                    .into(cover_art);
+        }
+        else
+        {
+            Glide.with(this)
+                    .asBitmap()
+                    .load(R.drawable.m2)
+                    .into(cover_art);
+        }
+        
     }
 }
