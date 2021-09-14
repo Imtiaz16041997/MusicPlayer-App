@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class PlayerActivity extends AppCompatActivity {
     static Uri uri;
     static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
-
+    private Thread playThread, prevThread, nextThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class PlayerActivity extends AppCompatActivity {
 
             }
         });
+
         PlayerActivity.this.runOnUiThread(new Runnable(){
             @Override
             public void run() {
@@ -82,21 +84,6 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
 
-    private void initViews() {
-        song_name = findViewById(R.id.song_name);
-        artist_name = findViewById(R.id.song_artist);
-        duration_played = findViewById(R.id.durationPlayed);
-        duration_total = findViewById(R.id.durationTotal);
-        cover_art = findViewById(R.id.cover_art);
-        nextBtn = findViewById(R.id.id_next);
-        prevBtn = findViewById(R.id.id_prev);
-        backBtn = findViewById(R.id.back_btn);
-        shuffleBtn = findViewById(R.id.id_shuffle);
-        repeatBtn = findViewById(R.id.id_repeat);
-        playPauseBtn = findViewById(R.id.play_pause);
-        seekBar = findViewById(R.id.seekBar);
-
-    }
 
 
     private void getIntentMethod() {
@@ -146,6 +133,22 @@ public class PlayerActivity extends AppCompatActivity {
             return totalOut;
         }
     }
+
+    private void initViews() {
+        song_name = findViewById(R.id.song_name);
+        artist_name = findViewById(R.id.song_artist);
+        duration_played = findViewById(R.id.durationPlayed);
+        duration_total = findViewById(R.id.durationTotal);
+        cover_art = findViewById(R.id.cover_art);
+        nextBtn = findViewById(R.id.id_next);
+        prevBtn = findViewById(R.id.id_prev);
+        backBtn = findViewById(R.id.back_btn);
+        shuffleBtn = findViewById(R.id.id_shuffle);
+        repeatBtn = findViewById(R.id.id_repeat);
+        playPauseBtn = findViewById(R.id.play_pause);
+        seekBar = findViewById(R.id.seekBar);
+
+    }
     
     private void metaData( Uri uri)
     {
@@ -172,5 +175,80 @@ public class PlayerActivity extends AppCompatActivity {
                     .into(cover_art);
         }
         
+    }
+
+    @Override
+    protected void onResume() {
+        playThreadBtn();
+        nextThreadBtn();
+        prevThreadBtn();
+
+
+
+        super.onResume();
+    }
+
+    private void prevThreadBtn() {
+    }
+
+    private void nextThreadBtn() {
+        
+    }
+
+    private void playThreadBtn() {
+        playThread = new Thread()
+        {
+            @Override
+            public void run() {
+                super.run();
+                playPauseBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        playPauseBtnClicked();
+                    }
+                });
+            }
+        };
+        playThread.start();
+
+    }
+
+    private void playPauseBtnClicked() {
+        if(mediaPlayer.isPlaying())
+        {
+            playPauseBtn.setImageResource(R.drawable.ic_play);
+            mediaPlayer.pause();
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+
+            PlayerActivity.this.runOnUiThread(new Runnable(){
+                @Override
+                public void run() {
+                    if(mediaPlayer != null)
+                    {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this,1000);
+                }
+            });
+        }
+        else
+        {
+            playPauseBtn.setImageResource(R.drawable.ic_pause);
+            mediaPlayer.start();
+            seekBar.setMax(mediaPlayer.getDuration() / 1000);
+
+            PlayerActivity.this.runOnUiThread(new Runnable(){
+                @Override
+                public void run() {
+                    if(mediaPlayer != null)
+                    {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                        seekBar.setProgress(mCurrentPosition);
+                    }
+                    handler.postDelayed(this,1000);
+                }
+            });
+        }
     }
 }
