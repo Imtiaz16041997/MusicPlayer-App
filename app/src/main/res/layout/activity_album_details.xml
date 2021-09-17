@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AlbumDetails">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/PrimaryDark">
+
+
+        <ImageView
+            android:id="@+id/albumPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/m2"
+            />
+
+        <ImageView
+            android:id="@+id/gradient"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/gradient_bg" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:layout_below="@id/albumPhoto"/>
+
+
+    </RelativeLayout>
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

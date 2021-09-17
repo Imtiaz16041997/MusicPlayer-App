@@ -1,6 +1,8 @@
 package com.example.musicplayer.AlbumAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.musicplayer.AlbumDetails;
 import com.example.musicplayer.Models.MusicFiles;
+import com.example.musicplayer.PlayerActivity;
 import com.example.musicplayer.R;
 
 import java.util.ArrayList;
@@ -36,7 +40,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<MyAlbumViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAlbumViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyAlbumViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.album_name.setText(albumFiles.get(position).getAlbum());
         byte[] image = getAlbumArt(albumFiles.get(position).getPath());
 
@@ -52,6 +56,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<MyAlbumViewHolder> {
                     .load(R.drawable.m2)
                     .into(holder.album_image);
         }
+        //album details
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, AlbumDetails.class);
+                //when click songs it will be playing
+                intent.putExtra("albumName",albumFiles.get(position).getAlbum());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
