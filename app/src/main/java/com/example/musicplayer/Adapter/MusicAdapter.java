@@ -1,9 +1,12 @@
 package com.example.musicplayer.Adapter;
 
 import android.annotation.SuppressLint;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +25,7 @@ import com.example.musicplayer.PlayerActivity;
 import com.example.musicplayer.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
@@ -98,16 +102,32 @@ public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
     }
 
-    private void deleteFile(int position, View view) {
+    private void deleteFile(int position, View view)
+    {
+        //we want file delete permanently from storage
+        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,Long.parseLong(mFiles.get(position).getId()));  //Content
 
-        mFiles.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, mFiles.size());
+        File file = new File(mFiles.get(position).getPath());
+        boolean deleted = file.delete(); // delete your file
 
-        Snackbar.make(view, "File Deleted : ", Snackbar.LENGTH_LONG).show();
+        if (deleted)
 
+        {
+            mContext.getContentResolver().delete(contentUri, null,null);
+            mFiles.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mFiles.size());
 
-                
+            Snackbar.make(view, "File Deleted : ", Snackbar.LENGTH_LONG).show();
+        }
+
+        else
+
+        {
+            // may be file in sd card
+            Snackbar.make(view, "File Can't be Deleted : ", Snackbar.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
