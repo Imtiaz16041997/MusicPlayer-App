@@ -14,7 +14,8 @@ import com.example.musicplayer.R;
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
     public TextView file_name;
-    public ImageView album_art;
+    public ImageView album_art,menuMore;
+
 
 
     public MyViewHolder(@NonNull View itemView) {
@@ -22,6 +23,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
         file_name = itemView.findViewById(R.id.music_file_name);
         album_art = itemView.findViewById(R.id.music_img);
+        menuMore = itemView.findViewById(R.id.menuMore);
     }
 
 

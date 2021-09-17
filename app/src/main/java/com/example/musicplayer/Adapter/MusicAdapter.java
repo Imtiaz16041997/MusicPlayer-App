@@ -4,9 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.musicplayer.Models.MusicFiles;
 import com.example.musicplayer.PlayerActivity;
 import com.example.musicplayer.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -64,7 +70,44 @@ public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
                 mContext.startActivity(intent);
             }
         });
+        //menu delete pop up
+        holder.menuMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                PopupMenu popupMenu = new PopupMenu(mContext, view);
+                popupMenu.getMenuInflater().inflate(R.menu.popup,popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch  (menuItem.getItemId()){
 
+                            case R.id.delete :
+
+                                Toast.makeText(mContext,"Delete Clicked!!",Toast.LENGTH_SHORT).show();
+
+                                deleteFile(position, view);
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void deleteFile(int position, View view) {
+
+        mFiles.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mFiles.size());
+
+        Snackbar.make(view, "File Deleted : ", Snackbar.LENGTH_LONG).show();
+
+
+                
     }
 
     @Override
