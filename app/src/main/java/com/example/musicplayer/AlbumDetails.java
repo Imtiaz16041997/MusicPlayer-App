@@ -36,9 +36,16 @@ public class AlbumDetails extends AppCompatActivity {
         for(int i = 0; i < musicFiles.size(); i++)
         {
             if(albumName.equals(musicFiles.get(i).getAlbum()))
+
             {
-                albumSongs.add(j,musicFiles.get(i));
-                j++;
+                if(!albumSongs.contains(musicFiles.get(i)))
+                {
+                    albumSongs.add(j,musicFiles.get(i));
+//                    albumName.setText(musicFiles.get(i).getAlbum());
+                    j++;
+
+                }
+
             }
         }
 

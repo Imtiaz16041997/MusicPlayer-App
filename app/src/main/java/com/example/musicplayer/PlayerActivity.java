@@ -52,8 +52,6 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
 
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

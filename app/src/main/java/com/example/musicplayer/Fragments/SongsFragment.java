@@ -19,7 +19,7 @@ import com.example.musicplayer.R;
 public class SongsFragment extends Fragment {
 
     RecyclerView recyclerView;
-    MusicAdapter musicAdapter;
+    public static MusicAdapter musicAdapter;
     public SongsFragment() {
         // Required empty public constructor
     }
