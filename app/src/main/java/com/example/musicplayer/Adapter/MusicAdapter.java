@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class MusicAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
     private Context mContext;
-    private ArrayList<MusicFiles> mFiles;
+    public static ArrayList<MusicFiles> mFiles;
 
 
     public MusicAdapter(Context mContext, ArrayList<MusicFiles> mFiles) {

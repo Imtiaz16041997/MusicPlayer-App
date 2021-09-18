@@ -1,6 +1,7 @@
 package com.example.musicplayer;
 
 
+import static com.example.musicplayer.Adapter.MusicAdapter.mFiles;
 import static com.example.musicplayer.AlbumAdapter.AlbumDetailsAdapter.albumFiles;
 import static com.example.musicplayer.MainActivity.musicFiles;
 import static com.example.musicplayer.MainActivity.repeatBoolean;
@@ -155,7 +156,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
 
         else
         {
-            listSongs = musicFiles;
+            listSongs = mFiles;
         }
 
 

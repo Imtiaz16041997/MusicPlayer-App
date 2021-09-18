@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     static  boolean shuffleBoolean = false, repeatBoolean = false;
     public static ArrayList<MusicFiles> albums= new ArrayList<>();
+
+    private  String MY_SORT_PREF = "SortOrder" ;   // String
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +102,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static ArrayList<MusicFiles> getAllAudio(Context context)
+    public  ArrayList<MusicFiles> getAllAudio(Context context)
     {
+        SharedPreferences sharedPreferences = getSharedPreferences(MY_SORT_PREF, MODE_PRIVATE);
+        String sortOrder = sharedPreferences.getString("sorting","sortByDate");  // make a default value in s1
         ArrayList<String> duplicate = new ArrayList<>();
+        albums.clear();
         ArrayList<MusicFiles> tempAudioList = new ArrayList<>();
-
+        String order = null; //Sort Order
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+
+        switch (sortOrder)   // for checking which of the item is selected at this moment
+        {
+            case "sortByName":
+                order = MediaStore.MediaColumns.DISPLAY_NAME + " ASC";
+                break;
+
+            case "sortByDate":
+                order = MediaStore.MediaColumns.DATE_ADDED + " ASC";
+                break;
+
+            case "sortBySize":
+                order = MediaStore.MediaColumns.SIZE + " DESC";
+                break;
+
+        }
         String [] projection = {
                 MediaStore.Audio.Media.ALBUM,
                 MediaStore.Audio.Media.TITLE,
@@ -116,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        Cursor cursor = context.getContentResolver().query(uri, projection, null,null,null);
+        Cursor cursor = context.getContentResolver().query(uri, projection, null,null, order);
 
         if(cursor != null)
         {
@@ -186,4 +208,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Sorting
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferences.Editor editor = getSharedPreferences(MY_SORT_PREF, MODE_PRIVATE).edit();
+
+        switch (item.getItemId())
+        {
+            case R.id.by_name:
+
+                editor.putString("sorting","sortByName");
+                editor.apply();
+                this.recreate();
+                break;
+
+            case R.id.by_date:
+                editor.putString("sorting","sortByDate");
+                editor.apply();
+                this.recreate();
+                break;
+
+            case R.id.by_size:
+                editor.putString("sorting","sortBySize");
+                editor.apply();
+                this.recreate();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
