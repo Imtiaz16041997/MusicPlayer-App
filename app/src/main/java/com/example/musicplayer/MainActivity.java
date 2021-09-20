@@ -25,13 +25,14 @@ import android.widget.Toast;
 import com.example.musicplayer.Adapter.ViewPagerAdapter;
 import com.example.musicplayer.Fragments.AlbumFragment;
 import com.example.musicplayer.Fragments.SongsFragment;
+import com.example.musicplayer.Interface.ActionPlaying;
 import com.example.musicplayer.Models.MusicFiles;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     FragmentManager fragmentManager;
     ViewPagerAdapter pageAdapter;
 

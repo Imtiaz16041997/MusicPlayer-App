@@ -30,13 +30,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.musicplayer.Interface.ActionPlaying;
 import com.example.musicplayer.Models.MusicFiles;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
+public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener, ActionPlaying {
 
     //Declaring the Player Activity Views
     TextView song_name,artist_name,duration_played,duration_total;
@@ -333,7 +334,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         prevThread.start();
     }
 
-    private void prevBtnClicked() {
+    public void prevBtnClicked() {
 
         if(mediaPlayer.isPlaying())
         {
@@ -439,7 +440,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
         
     }
 
-    private void nextBtnClicked() {
+    public void nextBtnClicked() {
         if(mediaPlayer.isPlaying())
         {
             mediaPlayer.stop();
@@ -553,7 +554,7 @@ public class PlayerActivity extends AppCompatActivity implements MediaPlayer.OnC
 
     }
 
-    private void playPauseBtnClicked() {
+    public void playPauseBtnClicked() {
         if(mediaPlayer.isPlaying())
         {
             playPauseBtn.setImageResource(R.drawable.ic_play);
