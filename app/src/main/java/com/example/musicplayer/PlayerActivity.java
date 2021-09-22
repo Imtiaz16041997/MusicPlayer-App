@@ -3,6 +3,7 @@ package com.example.musicplayer;
 
 import static com.example.musicplayer.Adapter.MusicAdapter.mFiles;
 import static com.example.musicplayer.AlbumAdapter.AlbumDetailsAdapter.albumFiles;
+import static com.example.musicplayer.ApplicationClass.ACTION_NEXT;
 import static com.example.musicplayer.ApplicationClass.ACTION_PLAY;
 import static com.example.musicplayer.ApplicationClass.ACTION_PREVIOUS;
 import static com.example.musicplayer.ApplicationClass.CHANNEL_ID_2;
@@ -745,14 +746,14 @@ public class PlayerActivity extends AppCompatActivity implements  ActionPlaying,
 
         //next
         Intent nextIntent = new Intent(this,NotificationReceiver.class)
-                .setAction(ACTION_PREVIOUS);
+                .setAction(ACTION_NEXT);
         PendingIntent nextPending = android.app.PendingIntent.getBroadcast(this,0,nextIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
 
         //thumbnail
 
         byte [] picture = null;
-        picture = getAlbumArt(musicFiles.get(position).getPath());
+        picture = getAlbumArt(listSongs.get(position).getPath());
         Bitmap thumbnail = null;
 
         if(picture !=null)
@@ -767,8 +768,8 @@ public class PlayerActivity extends AppCompatActivity implements  ActionPlaying,
         Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID_2)
                 .setSmallIcon(playPauseBtn)
                 .setLargeIcon(thumbnail)
-                .setContentTitle(musicFiles.get(position).getPath())
-                .setContentText(musicFiles.get(position).getArtist())
+                .setContentTitle(listSongs.get(position).getPath())
+                .setContentText(listSongs.get(position).getArtist())
                 .addAction(R.drawable.ic_skip_previous,"Previous",prevPending)
                 .addAction(playPauseBtn,"Pause",pausePending)
                 .addAction(R.drawable.ic_skip_next,"Next",nextPending)
