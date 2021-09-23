@@ -720,7 +720,6 @@ public class PlayerActivity extends AppCompatActivity implements  ActionPlaying,
                 musicService.onCompleted();
 
 
-
     }
 
     @Override
