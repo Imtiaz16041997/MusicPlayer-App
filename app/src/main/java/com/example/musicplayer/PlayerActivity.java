@@ -708,6 +708,8 @@ public class PlayerActivity extends AppCompatActivity implements  ActionPlaying,
 
         MusicService.MyBinder myBinder = (MusicService.MyBinder) service;
         musicService = myBinder.getService();
+        musicService.setCallBack(this);  // it means  methods we have implemented inside this
+        // playerActivity will be called from the musicService class
         Toast.makeText(this,"Connected" + musicService,Toast.LENGTH_SHORT).show();
 
                 seekBar.setMax(musicService.getDuration() / 1000);
