@@ -251,11 +251,16 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                         .setMediaSession(mediaSessionCompat.getSessionToken()))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setOnlyAlertOnce(true)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .build();
 
-        NotificationManager notificationManager =  (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        NotificationManager notificationManager =  (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        notificationManager.notify(0,notification);
 
-        notificationManager.notify(0,notification);
+        //implement foreground, when app remove from recent
+        // activity but app still works at the foreground
+
+        startForeground(1,notification);
 
 
 
