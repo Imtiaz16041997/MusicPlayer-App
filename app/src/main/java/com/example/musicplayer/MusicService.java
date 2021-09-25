@@ -167,7 +167,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         uri = Uri.parse(musicFiles.get(position).getPath());
         //store the path inside the sharedpreferences
         SharedPreferences.Editor editor  = getSharedPreferences(MUSIC_LAST_PLAYED,MODE_PRIVATE).edit();
+
         editor.putString(MUSIC_FILE,uri.toString());
+        editor.putString(ARTIST_NAME,musicFiles.get(position).getArtist());
+        editor.putString(SONG_NAME,musicFiles.get(position).getTitle());
+
         editor.apply();
         mediaPlayer = MediaPlayer.create(getBaseContext(),uri);
     }

@@ -1,7 +1,9 @@
 package com.example.musicplayer.Fragments;
 
+import static com.example.musicplayer.MainActivity.ARTIST_TO_FRAGMENT;
 import static com.example.musicplayer.MainActivity.PATH_TO_FRAGMENT;
 import static com.example.musicplayer.MainActivity.SHOW_MINI_PLAYER;
+import static com.example.musicplayer.MainActivity.SONG_NAME_TO_FRAGMENT;
 
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
@@ -49,7 +51,6 @@ public class NowPlayingFragmentBottom extends Fragment {
         albumArt = view.findViewById(R.id.bottom_album_art);
         playPauseBtn = view.findViewById(R.id.play_pause_miniPlayer);
 
-
         return view;
     }
 
@@ -61,10 +62,21 @@ public class NowPlayingFragmentBottom extends Fragment {
             if(PATH_TO_FRAGMENT !=null) {
 
                 byte[] art = getAlbumArt(PATH_TO_FRAGMENT);
-                Glide.with(getContext())
-                        .load(art)
-                        .into(albumArt);
-                songName.setText(PATH_TO_FRAGMENT);
+
+                if(art != null) {
+                    Glide.with(getContext())
+                            .load(art)
+                            .into(albumArt);
+                }
+                else {
+
+                    Glide.with(getContext())
+                            .load(R.drawable.m2)
+                            .into(albumArt);
+
+                }
+                songName.setText(SONG_NAME_TO_FRAGMENT);
+                artist.setText(ARTIST_TO_FRAGMENT);
 
             }
 

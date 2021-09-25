@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity  {
     public static final String MUSIC_FILE = "STORED_MUSIC";
     public static boolean SHOW_MINI_PLAYER = false;
     public static  String PATH_TO_FRAGMENT = null;
+    public static  String ARTIST_TO_FRAGMENT = null;
+    public static  String SONG_NAME_TO_FRAGMENT = null;
     public static final String ARTIST_NAME = "ARTIST NAME";
     public static final String SONG_NAME = "SONG NAME";
 
@@ -246,15 +248,22 @@ public class MainActivity extends AppCompatActivity  {
     protected void onResume() {
         super.onResume();
         SharedPreferences preferences = getSharedPreferences(MUSIC_LAST_PLAYED,MODE_PRIVATE);
-        String value = preferences.getString(MUSIC_FILE,null);
+        String path = preferences.getString(MUSIC_FILE,null);
+        String artist = preferences.getString(ARTIST_NAME,null);
+        String song_name = preferences.getString(SONG_NAME,null);
 
-        if(value != null){
+        if(path != null){
             SHOW_MINI_PLAYER = true;
-            PATH_TO_FRAGMENT = value;
+            PATH_TO_FRAGMENT = path;
+            ARTIST_TO_FRAGMENT = artist;
+            SONG_NAME_TO_FRAGMENT = song_name;
+
         }
         else{
             SHOW_MINI_PLAYER = false;
             PATH_TO_FRAGMENT = null;
+            ARTIST_TO_FRAGMENT = null;
+            SONG_NAME_TO_FRAGMENT = null;
         }
 
 
