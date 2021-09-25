@@ -35,9 +35,9 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     IBinder mBinder = new MyBinder();
     MediaPlayer mediaPlayer;
-    ArrayList<MusicFiles> musicFiles = new ArrayList<>();
+    public ArrayList<MusicFiles> musicFiles = new ArrayList<>();
     Uri uri;
-    int position = -1;
+    public int position = -1;
 
     ActionPlaying actionPlaying;
     MediaSessionCompat mediaSessionCompat;
@@ -77,29 +77,17 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             {
                 case "playPause":
                     Toast.makeText(this,"PlayPause",Toast.LENGTH_SHORT).show();
-                    if(actionPlaying != null)
-                    {
-                        Log.e("Inside", "Action");
-                        actionPlaying.playPauseBtnClicked();
-                    }
+                    playPauseBtnClicked();
                     break;
 
                 case "next":
                     Toast.makeText(this,"Next",Toast.LENGTH_SHORT).show();
-                    if(actionPlaying != null)
-                    {
-                        Log.e("Inside", "Action");
-                        actionPlaying.nextBtnClicked();
-                    }
+                    nextBtnClicked();
                     break;
 
                 case "previous":
                     Toast.makeText(this,"Previous",Toast.LENGTH_SHORT).show();
-                    if(actionPlaying != null)
-                    {
-                        Log.e("Inside", "Action");
-                        actionPlaying.prevBtnClicked();
-                    }
+                    previousBtnClicked();
                     break;
             }
         }
@@ -131,7 +119,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     public class MyBinder extends Binder {
 
-        MusicService getService() {
+        public MusicService getService() {
             return MusicService.this;
         }
 
@@ -141,7 +129,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         mediaPlayer.start();
     }
 
-    boolean isPlaying() {
+    public boolean isPlaying() {
         return mediaPlayer.isPlaying();
     }
 
@@ -167,12 +155,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         uri = Uri.parse(musicFiles.get(position).getPath());
         //store the path inside the sharedpreferences
         SharedPreferences.Editor editor  = getSharedPreferences(MUSIC_LAST_PLAYED,MODE_PRIVATE).edit();
-
         editor.putString(MUSIC_FILE,uri.toString());
         editor.putString(ARTIST_NAME,musicFiles.get(position).getArtist());
         editor.putString(SONG_NAME,musicFiles.get(position).getTitle());
-
         editor.apply();
+
         mediaPlayer = MediaPlayer.create(getBaseContext(),uri);
     }
 
@@ -286,5 +273,30 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         byte[] art = retriever.getEmbeddedPicture();
         retriever.release();
         return  art;
+    }
+
+    public void nextBtnClicked(){
+        if(actionPlaying != null)
+        {
+            Log.e("Inside", "Action");
+            actionPlaying.nextBtnClicked();
+        }
+    }
+
+    public void previousBtnClicked(){
+        if(actionPlaying != null)
+        {
+            Log.e("Inside", "Action");
+            actionPlaying.prevBtnClicked();
+        }
+    }
+
+    public void playPauseBtnClicked(){
+
+        if(actionPlaying != null)
+        {
+            Log.e("Inside", "Action");
+            actionPlaying.playPauseBtnClicked();
+        }
     }
 }
