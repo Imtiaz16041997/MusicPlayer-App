@@ -44,6 +44,13 @@ public class MainActivity extends AppCompatActivity  {
 
     private  String MY_SORT_PREF = "SortOrder" ;   // String
 
+    public static final String MUSIC_LAST_PLAYED = "LAST_PLAYED";    //SharedPreference for Last played song save
+    public static final String MUSIC_FILE = "STORED_MUSIC";
+    public static boolean SHOW_MINI_PLAYER = false;
+    public static  String PATH_TO_FRAGMENT = null;
+    public static final String ARTIST_NAME = "ARTIST NAME";
+    public static final String SONG_NAME = "SONG NAME";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +62,6 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
-
     private void permission() {
         if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
         {
@@ -69,7 +75,6 @@ public class MainActivity extends AppCompatActivity  {
 
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -88,7 +93,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
     }
-
     private void initViewpager() {
         ViewPager viewPager = findViewById(R.id.viewpager);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
@@ -169,7 +173,6 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
     //searchView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -208,7 +211,6 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
     //Sorting
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -237,5 +239,24 @@ public class MainActivity extends AppCompatActivity  {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences(MUSIC_LAST_PLAYED,MODE_PRIVATE);
+        String value = preferences.getString(MUSIC_FILE,null);
+
+        if(value != null){
+            SHOW_MINI_PLAYER = true;
+            PATH_TO_FRAGMENT = value;
+        }
+        else{
+            SHOW_MINI_PLAYER = false;
+            PATH_TO_FRAGMENT = null;
+        }
+
+
     }
 }

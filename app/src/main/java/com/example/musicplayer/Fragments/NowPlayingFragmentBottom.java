@@ -1,5 +1,9 @@
 package com.example.musicplayer.Fragments;
 
+import static com.example.musicplayer.MainActivity.PATH_TO_FRAGMENT;
+import static com.example.musicplayer.MainActivity.SHOW_MINI_PLAYER;
+
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.musicplayer.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,7 +50,33 @@ public class NowPlayingFragmentBottom extends Fragment {
         playPauseBtn = view.findViewById(R.id.play_pause_miniPlayer);
 
 
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (SHOW_MINI_PLAYER){
+
+            if(PATH_TO_FRAGMENT !=null) {
+
+                byte[] art = getAlbumArt(PATH_TO_FRAGMENT);
+                Glide.with(getContext())
+                        .load(art)
+                        .into(albumArt);
+                songName.setText(PATH_TO_FRAGMENT);
+
+            }
+
+        }
+    }
+
+    private  byte[] getAlbumArt(String uri)
+    {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(uri);
+        byte[] art = retriever.getEmbeddedPicture();
+        retriever.release();
+        return  art;
     }
 }
